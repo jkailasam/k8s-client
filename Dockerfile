@@ -8,6 +8,7 @@ ENV HOME="/root" \
 
 ARG IAM_AUTHENTICATOR_URL="https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator"
 ARG REQD_PKGS="apt-transport-https \
+    apt-utils \
     curl \
     git \
     tzdata \
@@ -34,7 +35,7 @@ RUN apt-get update -y --fix-missing && \
     apt-get install -y kubectl && \
     curl -o /usr/local/bin/aws-iam-authenticator ${IAM_AUTHENTICATOR_URL} && \
     chmod +x /usr/local/bin/aws-iam-authenticator && \
-    https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash -x && \
+    curl -s https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash -x && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
