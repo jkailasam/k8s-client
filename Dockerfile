@@ -25,11 +25,12 @@ ARG REQD_PKGS="apt-transport-https \
     wget"
 
 
-RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - && \
-    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list && \
-    apt-get update -y --fix-missing && \
+RUN apt-get update -y --fix-missing && \
     apt-get upgrade -y --no-install-recommends --fix-missing && \
     apt-get install -y --no-install-recommends --fix-missing $REQD_PKGS && \
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - && \
+    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list && \
+    apt-get update -y --fix-missing && \
     apt-get install -y kubectl && \
     curl -o /usr/local/bin/aws-iam-authenticator ${IAM_AUTHENTICATOR_URL} && \
     chmod +x /usr/local/bin/aws-iam-authenticator && \
