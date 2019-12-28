@@ -25,7 +25,6 @@ ARG REQD_PKGS="apt-transport-https \
     netcat \
     wget"
 
-
 RUN apt-get update -y --fix-missing && \
     apt-get upgrade -y --no-install-recommends --fix-missing && \
     apt-get install -y --no-install-recommends --fix-missing $REQD_PKGS && \
